@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 
 import { auth } from "../firebase"
+import { Navigate } from 'react-router-dom'
 
-const Home = () => {
+const Home = ({user}) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isSignUpActive, setIsSignUpActive] = useState(false)
@@ -42,6 +43,10 @@ const Home = () => {
 
   const handleEmailChange = (event) => setEmail(event.target.value)
   const handlePasswordChange = (event) => setPassword(event.target.value)
+
+  if(user) {
+    return <Navigate to="/private"></Navigate>
+  }
 
   return (
     <form>
