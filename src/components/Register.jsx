@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { auth, db } from '../firebase/firebase'
 import { setDoc } from 'firebase/firestore'
 
+import { toast } from "react-toastify"
+
 export const Register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -24,9 +26,14 @@ export const Register = () => {
                     lastName: lname
                 })
             }
-            console.log("User registerred successfully")
+            toast.success("User registerred successfully", {
+                position: "top-right"
+            })
         } catch (error) {
             console.log(error.message)
+            toast.success(error.message, {
+                position: "bottom-right"
+            })
         }
     }
 
