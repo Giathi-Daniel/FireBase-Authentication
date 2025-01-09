@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom"
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
 import React, { useState } from 'react'
 import { toast } from "react-toastify"
+
+import SignInWithGoogle from "./SignInWithGoogle"
 
 export const Login = () => {
     const [email, setEmail] = useState('')
@@ -53,6 +56,10 @@ export const Login = () => {
                 Submit
             </button>
         </div>
+        <p>
+            New User <Link to="/register">Register Here</Link>
+        </p>
+        <SignInWithGoogle />
     </form>
   )
 }
