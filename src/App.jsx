@@ -1,48 +1,25 @@
-import React, { useEffect, useState } from "react"
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom"
-import { onAuthStateChanged } from "firebase/auth"
+import React from 'react'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Login } from './components/Login'
+import Register from './components/Register'
 
-import Home from "./pages/Home"
-import Private from "./pages/Private"
-import ProtectedRoute from "./components/ProtectedRoute"
-import { auth } from "./firebase"
+import { ToastContainer } from "react-toastify"
 
-
-function App() {
-  const [user, setUser] = useState(null)
-  const [isFetching, setIsFetching] = useState(true)
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if(user) {
-        setUser(user) 
-        setIsFetching(false)
-        return
-      }
-
-      setUser(null)
-      setIsFetching(false)
-    })
-    return () => unsubscribe();
-  }, [])
-
-  if (isFetching) {
-    return <h2>Loading...</h2>
-  }
-
+const App = () => {
   return (
     <Router>
-        <Routes>
-            <Route path="/" element={<Home user={user} />} />
-            <Route 
-              path="/private" 
-              element={
-                <ProtectedRoute user={user}>
-                  <Private />
-                </ProtectedRoute> 
-              }
-            />
-        </Routes>
+      <div>
+        <div>
+          <div>
+            <Routes>
+              <Route path='/' element={<Login />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+            </Routes>
+            <ToastContainer />
+          </div>
+        </div>
+      </div>
     </Router>
   )
 }
