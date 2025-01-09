@@ -1,4 +1,8 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
+
+import { auth, db } from '../firebase/firebase'
+import { setDoc } from 'firebase/firestore'
 
 export const Register = () => {
     const [email, setEmail] = useState('')
@@ -6,8 +10,28 @@ export const Register = () => {
     const [fname, setFname] = useState('')
     const [lname, setLname] = useState('')
 
+    const handleRegister = async (e) => {
+        e.preventDefault()
+
+        try {
+            await createUserWithEmailAndPassword(auth, email, password)
+            const user = auth.currentUser
+            
+            if(user) {
+                await setDoc(doc(db, "User", user.uid), {
+                    email: user.email,
+                    firstName: fname,
+                    lastName: lname
+                })
+            }
+            console.log("User registerred successfully")
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
   return (
-    <form >
+    <form onSubmit={handleRegister}>
         <h3>Register</h3>
         <div className='mb-3'>
             <label>First Name</label>
