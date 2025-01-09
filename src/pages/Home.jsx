@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 
-import { auth } from "../firebase"
+import { auth } from "../firebase/firebase"
 import { Navigate } from 'react-router-dom'
 
 const Home = ({user}) => {
