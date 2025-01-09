@@ -15,6 +15,7 @@ export const Login = () => {
             toast.success("User registerred successfully", {
                 position: "top-right"
             })
+            window.location.href = "/profile"
         } catch (error) {
             toast.success(error.message, {
                 position: "bottom-right"
